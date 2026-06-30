@@ -23,8 +23,8 @@ public class Appointment {
     public String getDoctorName() {return this.doctorName;}
     public LocalDate getDate() {return this.date;}
     public LocalTime getTime() {return this.time;}
-    private String getReason() {return this.reason;}
-    private String getStatus() {return this.status;}
+    public String getReason() {return this.reason;}
+    public String getStatus() {return this.status;}
 
     public void setAppointmentId(int v) {this.appointmentId = v;}
     public void setPatientId(int v) {this.patientId = v;}
