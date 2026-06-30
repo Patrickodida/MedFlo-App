@@ -1,4 +1,4 @@
-package com.hms.utils;
+package com.hms.util;
 
 public class Validator {
 }
