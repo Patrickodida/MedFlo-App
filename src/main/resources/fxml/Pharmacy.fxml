@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.hms.ui.PharmacyController"
+            styleClass="screen-root">
+
+    <!-- ── TOP BAR ─────────────────────────────────────── -->
+    <top>
+        <VBox>
+            <HBox styleClass="topbar"
+                  alignment="CENTER_LEFT"
+                  spacing="14">
+                <Button text="← Back"
+                        onAction="#handleBack"
+                        styleClass="btn-secondary"
+                        style="-fx-padding:5 12;"/>
+                <Label text="Pharmacy and Inventory"
+                       styleClass="topbar-title"
+                       HBox.hgrow="ALWAYS"/>
+                <Label fx:id="statusLabel"
+                       text=""
+                       wrapText="true"
+                       maxWidth="300"/>
+            </HBox>
+            <!-- Low stock alert bar -->
+            <HBox style="-fx-background-color:#FFF3E0;
+                         -fx-padding:6 20;">
+                <Label fx:id="lowStockLabel"
+                       text=""
+                       style="-fx-font-size:12px;"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.35">
+
+            <!-- LEFT: Add/Edit Form -->
+            <ScrollPane fitToWidth="true">
+                <VBox styleClass="form-container" spacing="12">
+
+                    <Label text="Add / Edit Item"
+                           style="-fx-font-size:15px;
+                                  -fx-font-weight:bold;
+                                  -fx-text-fill:#1A237E;"/>
+
+                    <VBox spacing="4">
+                        <Label text="Item Name *"
+                               styleClass="field-label"/>
+                        <TextField fx:id="itemNameField"
+                                   promptText="e.g. Paracetamol"
+                                   styleClass="form-field"/>
+                    </VBox>
+
+                    <HBox spacing="10">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Category"
+                                   styleClass="field-label"/>
+                            <ComboBox fx:id="categoryCombo"
+                                      maxWidth="Infinity"
+                                      styleClass="form-field"/>
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Unit"
+                                   styleClass="field-label"/>
+                            <TextField fx:id="unitField"
+                                       promptText="tablets/bottles"
+                                       styleClass="form-field"/>
+                        </VBox>
+                    </HBox>
+
+                    <HBox spacing="10">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Quantity"
+                                   styleClass="field-label"/>
+                            <TextField fx:id="quantityField"
+                                       promptText="0"
+                                       styleClass="form-field"/>
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Unit Price (UGX)"
+                                   styleClass="field-label"/>
+                            <TextField fx:id="unitPriceField"
+                                       promptText="0"
+                                       styleClass="form-field"/>
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Reorder Level"
+                                   styleClass="field-label"/>
+                            <TextField fx:id="reorderLevelField"
+                                       promptText="10"
+                                       styleClass="form-field"/>
+                        </VBox>
+                    </HBox>
+
+                    <VBox spacing="4">
+                        <Label text="Expiry Date"
+                               styleClass="field-label"/>
+                        <DatePicker fx:id="expiryPicker"
+                                    maxWidth="Infinity"
+                                    styleClass="form-field"/>
+                    </VBox>
+
+                    <VBox spacing="4">
+                        <Label text="Supplier Name"
+                               styleClass="field-label"/>
+                        <TextField fx:id="supplierField"
+                                   promptText="e.g. Kampala Pharmaceuticals"
+                                   styleClass="form-field"/>
+                    </VBox>
+
+                    <!-- Action Buttons -->
+                    <HBox spacing="8">
+                        <Button fx:id="addBtn"
+                                text="Add Item"
+                                onAction="#handleAdd"
+                                styleClass="btn-primary"
+                                HBox.hgrow="ALWAYS"
+                                maxWidth="Infinity"/>
+                        <Button fx:id="updateBtn"
+                                text="Update Item"
+                                onAction="#handleUpdate"
+                                styleClass="btn-primary"
+                                HBox.hgrow="ALWAYS"
+                                maxWidth="Infinity"
+                                visible="false"/>
+                    </HBox>
+
+                    <HBox spacing="8">
+                        <Button text="Delete"
+                                onAction="#handleDelete"
+                                styleClass="btn-danger"
+                                HBox.hgrow="ALWAYS"
+                                maxWidth="Infinity"/>
+                        <Button text="Clear"
+                                onAction="#handleClear"
+                                styleClass="btn-secondary"
+                                HBox.hgrow="ALWAYS"
+                                maxWidth="Infinity"/>
+                    </HBox>
+
+                </VBox>
+            </ScrollPane>
+
+            <!-- RIGHT: Inventory Table -->
+            <VBox spacing="10" styleClass="table-container">
+
+                <!-- Search + Filter buttons -->
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <TextField fx:id="searchField"
+                               promptText="Search by name or category..."
+                               styleClass="form-field"
+                               HBox.hgrow="ALWAYS"/>
+                    <Button text="Low Stock"
+                            onAction="#handleShowLowStock"
+                            styleClass="btn-danger"
+                            style="-fx-padding:7 12;"/>
+                    <Button text="Show All"
+                            onAction="#handleShowAll"
+                            styleClass="btn-secondary"
+                            style="-fx-padding:7 12;"/>
+                </HBox>
+
+                <TableView fx:id="itemTable"
+                           VBox.vgrow="ALWAYS"
+                           styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="idCol"
+                                     text="ID"
+                                     prefWidth="40"/>
+                        <TableColumn fx:id="nameCol"
+                                     text="Item Name"
+                                     prefWidth="150"/>
+                        <TableColumn fx:id="categoryCol"
+                                     text="Category"
+                                     prefWidth="90"/>
+                        <TableColumn fx:id="quantityCol"
+                                     text="Qty"
+                                     prefWidth="60"/>
+                        <TableColumn fx:id="unitCol"
+                                     text="Unit"
+                                     prefWidth="70"/>
+                        <TableColumn fx:id="priceCol"
+                                     text="Price"
+                                     prefWidth="80"/>
+                        <TableColumn fx:id="expiryCol"
+                                     text="Expiry"
+                                     prefWidth="100"/>
+                        <TableColumn fx:id="supplierCol"
+                                     text="Supplier"
+                                     prefWidth="140"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="No inventory items found."
+                               style="-fx-text-fill:#90A4AE;"/>
+                    </placeholder>
+                </TableView>
+            </VBox>
+
+        </SplitPane>
+    </center>
+
+</BorderPane>

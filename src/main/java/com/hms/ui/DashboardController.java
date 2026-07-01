@@ -1,4 +1,7 @@
 package com.hms.ui;
 
-public class DashboardController {
+import com.hms.model.User;
+
+public interface DashboardController {
+    void setUser(User user);
 }

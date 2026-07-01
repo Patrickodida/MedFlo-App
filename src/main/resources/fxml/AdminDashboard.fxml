@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.hms.ui.AdminDashboardController"
+            styleClass="screen-root">
+
+    <!-- ── TOP BAR ─────────────────────────────────────── -->
+    <top>
+        <HBox styleClass="topbar"
+              alignment="CENTER_LEFT"
+              spacing="16">
+            <Label text="✚" style="-fx-font-size:18px;
+                   -fx-text-fill:#1565C0;"/>
+            <Label text="Medicare Hospital"
+                   styleClass="topbar-title"
+                   HBox.hgrow="ALWAYS"/>
+            <Label fx:id="welcomeLabel"
+                   text="Welcome"
+                   style="-fx-font-size:12px;
+                          -fx-text-fill:#555555;"/>
+            <Label fx:id="dateLabel"
+                   text=""
+                   style="-fx-font-size:11px;
+                          -fx-text-fill:#888888;"/>
+            <Button text="Logout"
+                    onAction="#handleLogout"
+                    styleClass="btn-danger"
+                    style="-fx-padding:5 14;"/>
+        </HBox>
+    </top>
+
+    <!-- ── LEFT SIDEBAR ────────────────────────────────── -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="220">
+            <VBox styleClass="sidebar-header" spacing="4">
+                <Label text="ADMIN"
+                       styleClass="sidebar-name"/>
+                <Label text="Main Navigation"
+                       styleClass="sidebar-role"/>
+            </VBox>
+            <Button text="Dashboard"
+                    styleClass="nav-item nav-item-active"
+                    maxWidth="Infinity"/>
+            <Button text="Patients"
+                    onAction="#goToPatients"
+                    styleClass="nav-item"
+                    maxWidth="Infinity"/>
+            <Button text="Appointments"
+                    onAction="#goToAppointments"
+                    styleClass="nav-item"
+                    maxWidth="Infinity"/>
+            <Button text="Billing"
+                    onAction="#goToBilling"
+                    styleClass="nav-item"
+                    maxWidth="Infinity"/>
+            <Button text="Pharmacy"
+                    onAction="#goToPharmacy"
+                    styleClass="nav-item"
+                    maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <!-- ── MAIN CONTENT ────────────────────────────────── -->
+    <center>
+        <VBox spacing="16"
+              style="-fx-padding: 20;">
+
+            <!-- Page title -->
+            <Label text="Dashboard Overview"
+                   style="-fx-font-size:18px;
+                          -fx-font-weight:bold;
+                          -fx-text-fill:#1A237E;"/>
+
+            <!-- ── STAT CARDS ROW ───────────────────────── -->
+            <HBox spacing="14">
+
+                <!-- Total Patients -->
+                <VBox styleClass="stat-card"
+                      HBox.hgrow="ALWAYS"
+                      spacing="6">
+                    <Label text="Total Patients"
+                           styleClass="stat-label"/>
+                    <Label fx:id="totalPatientsLabel"
+                           text="0"
+                           styleClass="stat-number"/>
+                    <Label text="All registered patients"
+                           style="-fx-font-size:10px;
+                                  -fx-text-fill:#90A4AE;"/>
+                </VBox>
+
+                <!-- Today Appointments -->
+                <VBox styleClass="stat-card"
+                      HBox.hgrow="ALWAYS"
+                      spacing="6">
+                    <Label text="Appointments Today"
+                           styleClass="stat-label"/>
+                    <Label fx:id="todayAppointmentsLabel"
+                           text="0"
+                           styleClass="stat-number"
+                           style="-fx-text-fill:#2E7D32;"/>
+                    <Label text="Scheduled for today"
+                           style="-fx-font-size:10px;
+                                  -fx-text-fill:#90A4AE;"/>
+                </VBox>
+
+                <!-- Today Revenue -->
+                <VBox styleClass="stat-card"
+                      HBox.hgrow="ALWAYS"
+                      spacing="6">
+                    <Label text="Revenue Today"
+                           styleClass="stat-label"/>
+                    <Label fx:id="todayRevenueLabel"
+                           text="UGX 0"
+                           styleClass="stat-number"
+                           style="-fx-text-fill:#E65100;
+                                  -fx-font-size:20px;"/>
+                    <Label text="Paid bills only"
+                           style="-fx-font-size:10px;
+                                  -fx-text-fill:#90A4AE;"/>
+                </VBox>
+
+            </HBox>
+
+            <!-- ── RECENT PATIENTS TABLE ────────────────── -->
+            <VBox spacing="8" VBox.vgrow="ALWAYS">
+                <Label text="Recent Patients"
+                       style="-fx-font-size:14px;
+                              -fx-font-weight:bold;
+                              -fx-text-fill:#1A237E;"/>
+                <TableView fx:id="patientTable"
+                           VBox.vgrow="ALWAYS"
+                           styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="idCol"
+                                     text="ID"
+                                     prefWidth="50"/>
+                        <TableColumn fx:id="codeCol"
+                                     text="Code"
+                                     prefWidth="90"/>
+                        <TableColumn fx:id="nameCol"
+                                     text="Full Name"
+                                     prefWidth="180"/>
+                        <TableColumn fx:id="phoneCol"
+                                     text="Phone"
+                                     prefWidth="120"/>
+                        <TableColumn fx:id="genderCol"
+                                     text="Gender"
+                                     prefWidth="80"/>
+                        <TableColumn fx:id="ageCol"
+                                     text="Age"
+                                     prefWidth="60"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="No patients registered yet."
+                               style="-fx-text-fill:#90A4AE;"/>
+                    </placeholder>
+                </TableView>
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>

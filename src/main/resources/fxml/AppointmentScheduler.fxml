@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.hms.ui.AppointmentController"
+            styleClass="screen-root">
+
+    <!-- ── TOP BAR ─────────────────────────────────────── -->
+    <top>
+        <HBox styleClass="topbar"
+              alignment="CENTER_LEFT"
+              spacing="14">
+            <Button text="← Back"
+                    onAction="#handleBack"
+                    styleClass="btn-secondary"
+                    style="-fx-padding:5 12;"/>
+            <Label text="Appointment Scheduler"
+                   styleClass="topbar-title"
+                   HBox.hgrow="ALWAYS"/>
+            <Label fx:id="statusLabel"
+                   text=""
+                   wrapText="true"
+                   maxWidth="350"/>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.38">
+
+            <!-- LEFT: Booking Form -->
+            <ScrollPane fitToWidth="true">
+                <VBox styleClass="form-container" spacing="12">
+
+                    <Label text="Book Appointment"
+                           style="-fx-font-size:15px;
+                                  -fx-font-weight:bold;
+                                  -fx-text-fill:#1A237E;"/>
+
+                    <VBox spacing="4">
+                        <Label text="Select Patient *"
+                               styleClass="field-label"/>
+                        <ComboBox fx:id="patientCombo"
+                                  maxWidth="Infinity"
+                                  styleClass="form-field"/>
+                    </VBox>
+
+                    <VBox spacing="4">
+                        <Label text="Select Doctor *"
+                               styleClass="field-label"/>
+                        <ComboBox fx:id="doctorCombo"
+                                  maxWidth="Infinity"
+                                  styleClass="form-field"/>
+                    </VBox>
+
+                    <HBox spacing="10">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Date *"
+                                   styleClass="field-label"/>
+                            <DatePicker fx:id="datePicker"
+                                        maxWidth="Infinity"
+                                        styleClass="form-field"/>
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Time Slot *"
+                                   styleClass="field-label"/>
+                            <ComboBox fx:id="timeCombo"
+                                      maxWidth="Infinity"
+                                      styleClass="form-field"/>
+                        </VBox>
+                    </HBox>
+
+                    <VBox spacing="4">
+                        <Label text="Reason for Visit"
+                               styleClass="field-label"/>
+                        <TextField fx:id="reasonField"
+                                   promptText="e.g. Fever, checkup..."
+                                   styleClass="form-field"/>
+                    </VBox>
+
+                    <!-- Action Buttons -->
+                    <HBox spacing="8">
+                        <Button fx:id="bookBtn"
+                                text="Book Appointment"
+                                onAction="#handleBook"
+                                styleClass="btn-primary"
+                                HBox.hgrow="ALWAYS"
+                                maxWidth="Infinity"/>
+                        <Button fx:id="rescheduleBtn"
+                                text="Reschedule"
+                                onAction="#handleReschedule"
+                                styleClass="btn-primary"
+                                HBox.hgrow="ALWAYS"
+                                maxWidth="Infinity"
+                                visible="false"/>
+                    </HBox>
+
+                    <HBox spacing="8">
+                        <Button text="Cancel Appointment"
+                                onAction="#handleCancel"
+                                styleClass="btn-danger"
+                                HBox.hgrow="ALWAYS"
+                                maxWidth="Infinity"/>
+                        <Button text="Clear"
+                                onAction="#handleClear"
+                                styleClass="btn-secondary"
+                                HBox.hgrow="ALWAYS"
+                                maxWidth="Infinity"/>
+                    </HBox>
+
+                </VBox>
+            </ScrollPane>
+
+            <!-- RIGHT: Appointments Table -->
+            <VBox spacing="10" styleClass="table-container">
+                <Label text="All Appointments"
+                       style="-fx-font-size:14px;
+                              -fx-font-weight:bold;
+                              -fx-text-fill:#1A237E;"/>
+                <TableView fx:id="appointmentTable"
+                           VBox.vgrow="ALWAYS"
+                           styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="idCol"
+                                     text="ID"
+                                     prefWidth="45"/>
+                        <TableColumn fx:id="patientCol"
+                                     text="Patient"
+                                     prefWidth="160"/>
+                        <TableColumn fx:id="doctorCol"
+                                     text="Doctor"
+                                     prefWidth="150"/>
+                        <TableColumn fx:id="dateCol"
+                                     text="Date"
+                                     prefWidth="100"/>
+                        <TableColumn fx:id="timeCol"
+                                     text="Time"
+                                     prefWidth="80"/>
+                        <TableColumn fx:id="statusCol"
+                                     text="Status"
+                                     prefWidth="90"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="No appointments found."
+                               style="-fx-text-fill:#90A4AE;"/>
+                    </placeholder>
+                </TableView>
+            </VBox>
+
+        </SplitPane>
+    </center>
+
+</BorderPane>

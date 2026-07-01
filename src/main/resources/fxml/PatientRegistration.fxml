@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.hms.ui.PatientRegController"
+            styleClass="screen-root">
+
+    <!-- ── TOP BAR ─────────────────────────────────────── -->
+    <top>
+        <HBox styleClass="topbar"
+              alignment="CENTER_LEFT"
+              spacing="14">
+            <Button text="← Back"
+                    onAction="#handleBack"
+                    styleClass="btn-secondary"
+                    style="-fx-padding:5 12;"/>
+            <Label text="Patient Registration"
+                   styleClass="topbar-title"
+                   HBox.hgrow="ALWAYS"/>
+            <Label fx:id="patientCodeLabel"
+                   text="Auto-generated on save"
+                   styleClass="code-badge"/>
+            <Label fx:id="statusLabel"
+                   text=""
+                   wrapText="true"
+                   maxWidth="300"/>
+        </HBox>
+    </top>
+
+    <!-- ── MAIN CONTENT ────────────────────────────────── -->
+    <center>
+        <SplitPane dividerPositions="0.45">
+
+            <!-- LEFT: Registration Form -->
+            <ScrollPane fitToWidth="true">
+                <VBox styleClass="form-container" spacing="12">
+
+                    <!-- Name Row -->
+                    <HBox spacing="10">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="First Name *"
+                                   styleClass="field-label"/>
+                            <TextField fx:id="firstNameField"
+                                       promptText="e.g. Grace"
+                                       styleClass="form-field"/>
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Last Name *"
+                                   styleClass="field-label"/>
+                            <TextField fx:id="lastNameField"
+                                       promptText="e.g. Auma"
+                                       styleClass="form-field"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- DOB + Gender + Blood Group Row -->
+                    <HBox spacing="10">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Date of Birth"
+                                   styleClass="field-label"/>
+                            <DatePicker fx:id="dobPicker"
+                                        styleClass="form-field"
+                                        maxWidth="Infinity"/>
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Gender"
+                                   styleClass="field-label"/>
+                            <ComboBox fx:id="genderCombo"
+                                      maxWidth="Infinity"
+                                      styleClass="form-field"/>
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Blood Group"
+                                   styleClass="field-label"/>
+                            <ComboBox fx:id="bloodGroupCombo"
+                                      maxWidth="Infinity"
+                                      styleClass="form-field"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Phone + Email Row -->
+                    <HBox spacing="10">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Phone *"
+                                   styleClass="field-label"/>
+                            <TextField fx:id="phoneField"
+                                       promptText="0701234567"
+                                       styleClass="form-field"/>
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Email"
+                                   styleClass="field-label"/>
+                            <TextField fx:id="emailField"
+                                       promptText="patient@email.com"
+                                       styleClass="form-field"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Address -->
+                    <VBox spacing="4">
+                        <Label text="Address"
+                               styleClass="field-label"/>
+                        <TextArea fx:id="addressArea"
+                                  promptText="Street, City, District"
+                                  prefRowCount="2"
+                                  styleClass="form-field"/>
+                    </VBox>
+
+                    <!-- Emergency Contact Row -->
+                    <HBox spacing="10">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Emergency Contact Name"
+                                   styleClass="field-label"/>
+                            <TextField fx:id="emergencyContactField"
+                                       styleClass="form-field"/>
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Emergency Contact Phone"
+                                   styleClass="field-label"/>
+                            <TextField fx:id="emergencyPhoneField"
+                                       styleClass="form-field"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Medical History -->
+                    <VBox spacing="4">
+                        <Label text="Medical History / Allergies"
+                               styleClass="field-label"/>
+                        <TextArea fx:id="medicalHistoryArea"
+                                  prefRowCount="3"
+                                  promptText="e.g. Allergic to Penicillin, Diabetic..."
+                                  styleClass="form-field"/>
+                    </VBox>
+
+                    <!-- Action Buttons -->
+                    <HBox spacing="8">
+                        <Button fx:id="saveBtn"
+                                text="Save Patient"
+                                onAction="#handleSave"
+                                styleClass="btn-primary"
+                                HBox.hgrow="ALWAYS"
+                                maxWidth="Infinity"/>
+                        <Button fx:id="updateBtn"
+                                text="Update Patient"
+                                onAction="#handleUpdate"
+                                styleClass="btn-primary"
+                                HBox.hgrow="ALWAYS"
+                                maxWidth="Infinity"
+                                visible="false"/>
+                        <Button text="Clear"
+                                onAction="#handleClear"
+                                styleClass="btn-secondary"
+                                HBox.hgrow="ALWAYS"
+                                maxWidth="Infinity"/>
+                        <Button text="Delete"
+                                onAction="#handleDelete"
+                                styleClass="btn-danger"
+                                HBox.hgrow="ALWAYS"
+                                maxWidth="Infinity"/>
+                    </HBox>
+
+                </VBox>
+            </ScrollPane>
+
+            <!-- RIGHT: Search + Patient Table -->
+            <VBox spacing="10" styleClass="table-container">
+                <HBox spacing="10">
+                    <TextField fx:id="searchField"
+                               promptText="Search by name, phone or code..."
+                               styleClass="form-field"
+                               HBox.hgrow="ALWAYS"/>
+                </HBox>
+                <TableView fx:id="patientTable"
+                           VBox.vgrow="ALWAYS"
+                           styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="idCol"
+                                     text="ID"
+                                     prefWidth="45"/>
+                        <TableColumn fx:id="codeCol"
+                                     text="Code"
+                                     prefWidth="90"/>
+                        <TableColumn fx:id="nameCol"
+                                     text="Full Name"
+                                     prefWidth="160"/>
+                        <TableColumn fx:id="phoneCol"
+                                     text="Phone"
+                                     prefWidth="110"/>
+                        <TableColumn fx:id="genderCol"
+                                     text="Gender"
+                                     prefWidth="70"/>
+                        <TableColumn fx:id="ageCol"
+                                     text="Age"
+                                     prefWidth="45"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="No patients found."
+                               style="-fx-text-fill:#90A4AE;"/>
+                    </placeholder>
+                </TableView>
+            </VBox>
+
+        </SplitPane>
+    </center>
+
+</BorderPane>

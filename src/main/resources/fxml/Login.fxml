@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.ui.LoginController"
+      prefWidth="1000" prefHeight="650"
+      styleClass="root-container">
+
+    <!-- LEFT: Brand Panel -->
+    <VBox styleClass="brand-panel"
+          alignment="CENTER"
+          spacing="16"
+          HBox.hgrow="ALWAYS"
+          prefWidth="420">
+
+        <Label text="+" styleClass="brand-icon"/>
+        <Label text="Medicare Hospital" styleClass="brand-title"/>
+        <Label text="Hospital Management System"
+               styleClass="brand-subtitle"/>
+        <Separator prefWidth="180"/>
+
+        <VBox spacing="8" style="-fx-padding: 0 50 0 50;">
+            <Label text="Patient and Appointment Management"
+                   styleClass="feature-item"/>
+            <Label text="Electronic Medical Records (EMR)"
+                   styleClass="feature-item"/>
+            <Label text="Billing, Pharmacy and Laboratory"
+                   styleClass="feature-item"/>
+            <Label text="Role-Based Access Control"
+                   styleClass="feature-item"/>
+            <Label text="Reports and Analytics"
+                   styleClass="feature-item"/>
+        </VBox>
+
+        <Label text="Secure  |  Always Available  |  2025"
+               styleClass="brand-footer"/>
+    </VBox>
+
+    <!-- RIGHT: Login Form -->
+    <VBox styleClass="form-panel"
+          alignment="CENTER"
+          HBox.hgrow="ALWAYS"
+          prefWidth="580">
+
+        <VBox fx:id="loginCard"
+              styleClass="login-card"
+              alignment="TOP_LEFT"
+              spacing="0"
+              maxWidth="380">
+
+            <!-- Card Header -->
+            <VBox styleClass="card-header" spacing="5">
+                <Label text="Welcome Back"
+                       styleClass="card-title"/>
+                <Label text="Sign in to your account"
+                       styleClass="card-subtitle"/>
+            </VBox>
+
+            <!-- Card Body -->
+            <VBox styleClass="card-body" spacing="14">
+
+                <VBox spacing="5">
+                    <Label text="Username" styleClass="field-label"/>
+                    <TextField fx:id="usernameField"
+                               promptText="Enter your username"
+                               styleClass="form-field"/>
+                </VBox>
+
+                <VBox spacing="5">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Password"
+                               styleClass="field-label"
+                               HBox.hgrow="ALWAYS"/>
+                        <Label text="Forgot password?"
+                               styleClass="link-label"
+                               onMouseClicked="#handleForgotPassword"/>
+                    </HBox>
+                    <PasswordField fx:id="passwordField"
+                                   promptText="Enter your password"
+                                   styleClass="form-field"/>
+                </VBox>
+
+                <Label fx:id="errorLabel"
+                       text=""
+                       styleClass="error-label"
+                       wrapText="true"
+                       visible="false"/>
+
+                <ProgressIndicator fx:id="loadingSpinner"
+                                   prefWidth="28"
+                                   prefHeight="28"
+                                   visible="false"/>
+
+                <Button fx:id="loginButton"
+                        text="Sign In"
+                        onAction="#handleLogin"
+                        styleClass="btn-primary"
+                        maxWidth="Infinity"
+                        defaultButton="true"/>
+
+                <HBox spacing="10">
+                    <Button text="Clear"
+                            onAction="#handleClear"
+                            styleClass="btn-secondary"
+                            HBox.hgrow="ALWAYS"
+                            maxWidth="Infinity"/>
+                    <Button text="Exit"
+                            onAction="#handleExit"
+                            styleClass="btn-danger"
+                            HBox.hgrow="ALWAYS"
+                            maxWidth="Infinity"/>
+                </HBox>
+
+            </VBox>
+
+            <!-- Card Footer -->
+            <VBox styleClass="card-footer" alignment="CENTER">
+                <Label text="Medicare Hospital 2025  All rights reserved"
+                       styleClass="footer-text"/>
+            </VBox>
+
+        </VBox>
+    </VBox>
+
+</HBox>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.hms.ui.DoctorDashboardController"
+            styleClass="screen-root">
+
+    <!-- ── TOP BAR ─────────────────────────────────────── -->
+    <top>
+        <HBox styleClass="topbar"
+              alignment="CENTER_LEFT"
+              spacing="16">
+            <Label text="✚"
+                   style="-fx-font-size:18px;
+                          -fx-text-fill:#1565C0;"/>
+            <Label text="Medicare Hospital — Doctor Portal"
+                   styleClass="topbar-title"
+                   HBox.hgrow="ALWAYS"/>
+            <Label fx:id="welcomeLabel"
+                   text="Welcome"
+                   style="-fx-font-size:12px;
+                          -fx-text-fill:#555555;"/>
+            <Label fx:id="dateLabel"
+                   text=""
+                   style="-fx-font-size:11px;
+                          -fx-text-fill:#888888;"/>
+            <Button text="Logout"
+                    onAction="#handleLogout"
+                    styleClass="btn-danger"
+                    style="-fx-padding:5 14;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.32">
+
+            <!-- LEFT: Today's Appointments -->
+            <VBox spacing="10" styleClass="table-container">
+                <Label text="Today's Appointments"
+                       style="-fx-font-size:15px;
+                              -fx-font-weight:bold;
+                              -fx-text-fill:#1A237E;"/>
+                <TableView fx:id="appointmentTable"
+                           VBox.vgrow="ALWAYS"
+                           styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="patientCol"
+                                     text="Patient"
+                                     prefWidth="140"/>
+                        <TableColumn fx:id="timeCol"
+                                     text="Time"
+                                     prefWidth="70"/>
+                        <TableColumn fx:id="reasonCol"
+                                     text="Reason"
+                                     prefWidth="120"/>
+                        <TableColumn fx:id="statusCol"
+                                     text="Status"
+                                     prefWidth="90"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="No appointments today."
+                               style="-fx-text-fill:#90A4AE;"/>
+                    </placeholder>
+                </TableView>
+                <Label text="Click an appointment to open EMR"
+                       style="-fx-font-size:11px;
+                              -fx-text-fill:#90A4AE;
+                              -fx-font-style:italic;"/>
+            </VBox>
+
+            <!-- RIGHT: EMR Panel -->
+            <VBox fx:id="emrPanel"
+                  spacing="12"
+                  styleClass="form-container"
+                  visible="false">
+
+                <!-- Patient Info Banner -->
+                <VBox style="-fx-background-color:#E3F2FD;
+                             -fx-padding:12;
+                             -fx-background-radius:8;">
+                    <Label fx:id="emrPatientLabel"
+                           text=""
+                           style="-fx-font-size:16px;
+                                  -fx-font-weight:bold;
+                                  -fx-text-fill:#0D47A1;"/>
+                    <Label fx:id="emrPatientInfo"
+                           text=""
+                           style="-fx-font-size:12px;
+                                  -fx-text-fill:#1565C0;"/>
+                </VBox>
+
+                <!-- Diagnosis and Treatment -->
+                <HBox spacing="10" VBox.vgrow="ALWAYS">
+                    <VBox spacing="5"
+                          HBox.hgrow="ALWAYS"
+                          VBox.vgrow="ALWAYS">
+                        <Label text="Diagnosis *"
+                               styleClass="field-label"/>
+                        <TextArea fx:id="diagnosisArea"
+                                  promptText="Enter diagnosis..."
+                                  VBox.vgrow="ALWAYS"
+                                  styleClass="form-field"/>
+                    </VBox>
+                    <VBox spacing="5"
+                          HBox.hgrow="ALWAYS"
+                          VBox.vgrow="ALWAYS">
+                        <Label text="Treatment Plan"
+                               styleClass="field-label"/>
+                        <TextArea fx:id="treatmentArea"
+                                  promptText="Enter treatment plan..."
+                                  VBox.vgrow="ALWAYS"
+                                  styleClass="form-field"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Notes -->
+                <VBox spacing="5">
+                    <Label text="Additional Notes"
+                           styleClass="field-label"/>
+                    <TextArea fx:id="notesArea"
+                              promptText="Any additional notes..."
+                              prefRowCount="2"
+                              styleClass="form-field"/>
+                </VBox>
+
+                <!-- Save Button -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button text="Save EMR Record"
+                            onAction="#handleSaveEMR"
+                            styleClass="btn-primary"
+                            style="-fx-padding:10 24;"/>
+                    <Label fx:id="emrStatusLabel"
+                           text=""
+                           wrapText="true"/>
+                </HBox>
+
+                <!-- Medical History -->
+                <VBox spacing="6" VBox.vgrow="ALWAYS">
+                    <Label text="Previous Visit History"
+                           style="-fx-font-size:13px;
+                                  -fx-font-weight:bold;
+                                  -fx-text-fill:#1A237E;"/>
+                    <TableView fx:id="historyTable"
+                               VBox.vgrow="ALWAYS"
+                               styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="histDateCol"
+                                         text="Date"
+                                         prefWidth="100"/>
+                            <TableColumn fx:id="histDiagCol"
+                                         text="Diagnosis"
+                                         prefWidth="200"/>
+                            <TableColumn fx:id="histTreatCol"
+                                         text="Treatment"
+                                         prefWidth="200"/>
+                        </columns>
+                        <placeholder>
+                            <Label text="No previous records."
+                                   style="-fx-text-fill:#90A4AE;"/>
+                        </placeholder>
+                    </TableView>
+                </VBox>
+
+            </VBox>
+
+        </SplitPane>
+    </center>
+
+</BorderPane>
